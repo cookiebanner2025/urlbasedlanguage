@@ -14,6 +14,7 @@ you can change the cookie category description text by this class. like you can 
  */
 
 
+
 const EU_COUNTRIES = [
   "AL", // Albania
   "AD", // Andorra
