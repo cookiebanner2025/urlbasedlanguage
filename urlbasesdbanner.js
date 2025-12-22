@@ -206,38 +206,22 @@ clarityConfig: {
     languageConfig: {
         defaultLanguage: 'en',
         availableLanguages: [], // Only en and fr as requested
-        showLanguageSelector: false,
+        showLanguageSelector: true,
         autoDetectLanguage: true
     },
 
 
 
-    // URL Language Rules Configuration - ADD THIS
-    urlLanguageRules: {
-        enabled: true, // Set to true to enable URL-based language detection
-        rules: [
-            // Format: { condition: 'contains'|'exact'|'path-contains'|'path-exact', value: 'what-to-check', language: 'language-code' }
-            
-            // Example 1: If domain ends with .de (German)
-         //    { condition: 'contains', value: '.de', language: 'de' },
-            
-            // Example 2: Exact domain match
-            { condition: 'exact', value: 'dev-rpractice.pantheonsite.io', language: 'en' },
-          //   { condition: 'exact', value: 'abcd.com.de', language: 'de' },
-            
-            // Example 3: Path contains specific text
-                 { condition: 'path-contains', value: 'shop', language: 'de' },
-          //     { condition: 'path-contains', value: '/fr/', language: 'fr' },
-            
-            // Example 4: Exact path match
-          //     { condition: 'path-exact', value: '/german-version', language: 'de' },
-         //      { condition: 'path-exact', value: '/french-version', language: 'fr' },
-            
-            // You can add more rules here
-            //   { condition: 'contains', value: 'example.com/fr', language: 'fr' },
-            //   { condition: 'exact', value: 'fr.example.com', language: 'fr' }
-        ]
-    },
+urlLanguageRules: {
+    enabled: true,
+    rules: [
+        // More specific rules first
+        { condition: 'path-contains', value: 'shop', language: 'de' },
+        { condition: 'path-contains', value: '/fr/', language: 'fr' },
+        // General rules last
+        { condition: 'exact', value: 'dev-rpractice.pantheonsite.io', language: 'en' }
+    ]
+}
 
 
 
@@ -2273,64 +2257,58 @@ function detectLanguageFromURL() {
     const currentHostname = window.location.hostname;
     const currentPath = window.location.pathname;
     
-    console.log('Checking URL for language rules:', {
+    console.log('URL Language Detection Debug:', {
         url: currentURL,
         hostname: currentHostname,
-        path: currentPath
+        path: currentPath,
+        rules: config.urlLanguageRules.rules
     });
     
-    // Check each rule in order (first match wins)
+    // Check each rule in order
     for (const rule of config.urlLanguageRules.rules) {
         let matches = false;
         
         switch (rule.condition) {
             case 'contains':
-                // Check if URL contains the value
                 if (currentURL.includes(rule.value)) {
                     matches = true;
                 }
                 break;
                 
             case 'exact':
-                // Check exact match for hostname
                 if (currentHostname === rule.value) {
                     matches = true;
                 }
                 break;
                 
             case 'path-contains':
-                // Check if path contains the value
                 if (currentPath.includes(rule.value)) {
                     matches = true;
                 }
                 break;
                 
             case 'path-exact':
-                // Check exact path match
                 if (currentPath === rule.value) {
                     matches = true;
                 }
                 break;
-                
-            default:
-                console.warn('Unknown rule condition:', rule.condition);
-                continue;
         }
         
-        if (matches) {
-            console.log('URL language rule matched:', rule);
-            // Make sure the language exists in translations
-            if (translations[rule.language]) {
-                return rule.language;
-            } else {
-                console.warn('Language not found in translations:', rule.language);
-            }
+        console.log(`Checking rule "${rule.condition}:${rule.value}" => ${rule.language}:`, {
+            matches: matches,
+            currentPath: currentPath,
+            ruleValue: rule.value
+        });
+        
+        if (matches && translations[rule.language]) {
+            console.log('URL rule matched:', rule);
+            return rule.language;
         }
     }
     
-    return null; // No URL rule matched
+    console.log('No URL language rule matched');
+    return null;
 }
-
 
 
 
