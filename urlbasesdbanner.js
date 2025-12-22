@@ -2194,11 +2194,13 @@ function checkGeoTargeting(geoData) {
 
 // Detect user language based on country and browser settings
 function detectUserLanguage(geoData) {
+    console.log('=== Starting language detection ===');
+    
     // Step 1: Check URL-based language rules first (highest priority)
     if (config.urlLanguageRules && config.urlLanguageRules.enabled) {
         const urlLanguage = detectLanguageFromURL();
         if (urlLanguage) {
-            console.log('Using language from URL rule:', urlLanguage);
+            console.log('Language detected from URL rule:', urlLanguage);
             
             // Save the detected language to cookie for future visits
             if (config.behavior.rememberLanguage) {
@@ -2207,8 +2209,9 @@ function detectUserLanguage(geoData) {
             return urlLanguage;
         }
     }
+    console.log('No URL rule matched');
     
-    // Step 2: Then check if language is stored in cookie (user's previous choice)
+    // Step 2: Check cookie (user's previous choice)
     if (config.behavior.rememberLanguage) {
         const preferredLanguage = getCookie('preferred_language');
         if (preferredLanguage && translations[preferredLanguage]) {
@@ -2217,25 +2220,23 @@ function detectUserLanguage(geoData) {
         }
     }
     
-    // Step 3: Then try to get language from browser settings
+    // Step 3: Browser language
     const browserLang = (navigator.language || navigator.userLanguage || 'en').split('-')[0];
     console.log('Browser language detected:', browserLang);
     
     if (translations[browserLang]) {
-        // Save the detected language to cookie for future visits
         if (config.behavior.rememberLanguage) {
             setCookie('preferred_language', browserLang, 365);
         }
         return browserLang;
     }
     
-    // Step 4: Then try to get language from country if auto-detection is enabled
+    // Step 4: Country-based detection
     if (config.languageConfig.autoDetectLanguage && geoData && geoData.country) {
         const countryLang = countryLanguageMap[geoData.country];
         console.log('Country language detected:', countryLang, 'for country:', geoData.country);
         
         if (countryLang && translations[countryLang]) {
-            // Save the detected language to cookie for future visits
             if (config.behavior.rememberLanguage) {
                 setCookie('preferred_language', countryLang, 365);
             }
@@ -2243,7 +2244,7 @@ function detectUserLanguage(geoData) {
         }
     }
     
-    // Step 5: Final fallback to configured default language
+    // Step 5: Final fallback
     console.log('Using default language:', config.languageConfig.defaultLanguage);
     return config.languageConfig.defaultLanguage || 'en';
 }
@@ -3846,8 +3847,7 @@ function shouldShowBanner() {
 
 // Main initialization function
 function initializeCookieConsent(detectedCookies, language) {
-
-   // NEW: Check if we should show on this URL
+    // NEW: Check if we should show on this URL
     if (!shouldShowOnCurrentUrl()) {
         console.log('Cookie consent banner disabled for this URL');
         return; // Don't show the banner on this URL
@@ -3878,70 +3878,65 @@ function initializeCookieConsent(detectedCookies, language) {
         }
     }
 
-
-
-    // Microsoft Clarity initialization
-// Microsoft Clarity initialization - UPDATED FOR COMPLIANCE
-function initializeClarity(consentGranted) {
-    if (!config.clarityConfig.enabled) return;
-    
-    const consentRequired = isEEAVisitor();
-    
-    // If we don't need consent or it's granted, load Clarity
-    if (consentGranted || !consentRequired) {
-        // Only load if not already loaded
-        if (typeof window.clarity === 'undefined') {
-            (function(c,l,a,r,i,t,y){
-                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-            })(window, document, "clarity", "script", config.clarityConfig.projectId);
-        }
+    // Microsoft Clarity initialization - UPDATED FOR COMPLIANCE
+    function initializeClarity(consentGranted) {
+        if (!config.clarityConfig.enabled) return;
         
-        // Send consent signal
-        ensureClarityConsentSignal(consentGranted);
-    } else if (config.clarityConfig.loadBeforeConsent === false) {
-        // Ensure Clarity doesn't load if consent not given and not allowed to load before consent
-        window.clarity = window.clarity || function() {
-            // Store calls in queue but don't execute them
-            (window.clarity.q = window.clarity.q || []).push(arguments);
-        };
-        window.clarity('consent', false);
-    }
-}
-
-
-
-// Function to send consent signal to Microsoft Clarity
-function sendClarityConsentSignal(consentGranted) {
-    if (!config.clarityConfig.enabled || !config.clarityConfig.sendConsentSignal) return;
-    
-    try {
-        if (typeof window.clarity !== 'undefined') {
-            // Send consent signal to Clarity
-            window.clarity('consent', consentGranted);
-            console.log('Microsoft Clarity consent signal sent:', consentGranted);
+        const consentRequired = isEEAVisitor();
+        
+        // If we don't need consent or it's granted, load Clarity
+        if (consentGranted || !consentRequired) {
+            // Only load if not already loaded
+            if (typeof window.clarity === 'undefined') {
+                (function(c,l,a,r,i,t,y){
+                    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+                })(window, document, "clarity", "script", config.clarityConfig.projectId);
+            }
             
-            // Push to dataLayer for tracking
-            window.dataLayer.push({
-                'event': 'clarity_consent_signal',
-                'clarity_consent': consentGranted,
-                'timestamp': new Date().toISOString(),
-                'location_data': locationData
-            });
+            // Send consent signal
+            ensureClarityConsentSignal(consentGranted);
+        } else if (config.clarityConfig.loadBeforeConsent === false) {
+            // Ensure Clarity doesn't load if consent not given and not allowed to load before consent
+            window.clarity = window.clarity || function() {
+                // Store calls in queue but don't execute them
+                (window.clarity.q = window.clarity.q || []).push(arguments);
+            };
+            window.clarity('consent', false);
         }
-    } catch (error) {
-        console.error('Failed to send Clarity consent signal:', error);
     }
-}
+
+    // Function to send consent signal to Microsoft Clarity
+    function sendClarityConsentSignal(consentGranted) {
+        if (!config.clarityConfig.enabled || !config.clarityConfig.sendConsentSignal) return;
+        
+        try {
+            if (typeof window.clarity !== 'undefined') {
+                // Send consent signal to Clarity
+                window.clarity('consent', consentGranted);
+                console.log('Microsoft Clarity consent signal sent:', consentGranted);
+                
+                // Push to dataLayer for tracking
+                window.dataLayer.push({
+                    'event': 'clarity_consent_signal',
+                    'clarity_consent': consentGranted,
+                    'timestamp': new Date().toISOString(),
+                    'location_data': locationData
+                });
+            }
+        } catch (error) {
+            console.error('Failed to send Clarity consent signal:', error);
+        }
+    }
     
-    // Explicitly apply the default language from config
-    changeLanguage(config.languageConfig.defaultLanguage);
+    // FIXED: Apply the dynamically detected language instead of forcing default
+    changeLanguage(language);
     
-    // Set the dropdown to the default language
+    // FIXED: Set the dropdown to the detected language, not the default
     const languageSelect = document.getElementById('cookieLanguageSelect');
     if (languageSelect) {
-        languageSelect.value = config.languageConfig.defaultLanguage;
+        languageSelect.value = language;
         // Ensure the change event listener is correctly set up
         languageSelect.addEventListener('change', function() {
             changeLanguage(this.value);
