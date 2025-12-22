@@ -222,7 +222,7 @@ urlLanguageRules: {
         // General rules last
         { condition: 'exact', value: 'dev-rpractice.pantheonsite.io', language: 'en' }
     ]
-}
+},
 
 
 
