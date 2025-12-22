@@ -226,7 +226,7 @@ clarityConfig: {
           //   { condition: 'exact', value: 'abcd.com.de', language: 'de' },
             
             // Example 3: Path contains specific text
-                 { condition: 'path-contains', value: '/shop/', language: 'de' },
+                 { condition: 'path-contains', value: 'shop', language: 'de' },
           //     { condition: 'path-contains', value: '/fr/', language: 'fr' },
             
             // Example 4: Exact path match
