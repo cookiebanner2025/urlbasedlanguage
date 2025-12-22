@@ -226,22 +226,24 @@ urlLanguageRules: {
         
         // Path contains (Most Flexible)
         { condition: 'path-contains', value: 'shop', language: 'nl' },
-        { condition: 'path-contains', value: '/shop/pl/', language: 'pl' },
+     /**   { condition: 'path-contains', value: '/shop/pl/', language: 'pl' },
         { condition: 'path-contains', value: '/shop/sv/', language: 'sv' },
         { condition: 'path-contains', value: '/shop/da/', language: 'da' },
         { condition: 'path-contains', value: '/shop/fi/', language: 'fi' },
         { condition: 'path-contains', value: '/shop/el/', language: 'el' },
         { condition: 'path-contains', value: '/shop/hu/', language: 'hu' },
         { condition: 'path-contains', value: '/shop/cs/', language: 'cs' },
-        { condition: 'path-contains', value: '/shop/ro/', language: 'ro' },
+        { condition: 'path-contains', value: '/shop/ro/', language: 'ro' }, */
+
         
         // General shop for specific languages
-        { condition: 'path-contains', value: '/nederlandse-winkel', language: 'nl' },
+     /**   { condition: 'path-contains', value: '/nederlandse-winkel', language: 'nl' },
         { condition: 'path-contains', value: '/polski-sklep', language: 'pl' },
-        { condition: 'path-contains', value: '/svenska-butik', language: 'sv' },
+        { condition: 'path-contains', value: '/svenska-butik', language: 'sv' }, */
+
         
         // Language-specific paths
-        { condition: 'path-contains', value: '/nederlands/', language: 'nl' },
+      /**  { condition: 'path-contains', value: '/nederlands/', language: 'nl' },
         { condition: 'path-contains', value: '/polski/', language: 'pl' },
         { condition: 'path-contains', value: '/svenska/', language: 'sv' },
         { condition: 'path-contains', value: '/dansk/', language: 'da' },
@@ -249,49 +251,54 @@ urlLanguageRules: {
         { condition: 'path-contains', value: '/ελληνικά/', language: 'el' },
         { condition: 'path-contains', value: '/magyar/', language: 'hu' },
         { condition: 'path-contains', value: '/čeština/', language: 'cs' },
-        { condition: 'path-contains', value: '/română/', language: 'ro' },
+        { condition: 'path-contains', value: '/română/', language: 'ro' }, */
+
         
         // Path exact (Higher priority than contains)
-        { condition: 'path-exact', value: '/shop/de', language: 'de' },
+       /** { condition: 'path-exact', value: '/shop/de', language: 'de' },
         { condition: 'path-exact', value: '/shop/fr', language: 'fr' },
         { condition: 'path-exact', value: '/shop/en', language: 'en' },
         { condition: 'path-exact', value: '/german-version', language: 'de' },
         { condition: 'path-exact', value: '/french-version', language: 'fr' },
-        { condition: 'path-exact', value: '/english-version', language: 'en' },
+        { condition: 'path-exact', value: '/english-version', language: 'en' }, */
+
         
         // Path starts with
-        { condition: 'path-starts-with', value: '/nl/', language: 'nl' },
+       /** { condition: 'path-starts-with', value: '/nl/', language: 'nl' },
         { condition: 'path-starts-with', value: '/pl/', language: 'pl' },
         { condition: 'path-starts-with', value: '/sv/', language: 'sv' },
         { condition: 'path-starts-with', value: '/da/', language: 'da' },
-        { condition: 'path-starts-with', value: '/fi/', language: 'fi' },
+        { condition: 'path-starts-with', value: '/fi/', language: 'fi' }, */
+
         
         // ===========================================================================
         // ====== URL-BASED CONDITIONS (MEDIUM PRIORITY) =============================
         // ===========================================================================
         
         // URL contains (full URL matching)
-        { condition: 'url-contains', value: 'example.com/fr/shop', language: 'fr' },
+      /**  { condition: 'url-contains', value: 'example.com/fr/shop', language: 'fr' },
         { condition: 'url-contains', value: 'example.com/de/shop', language: 'de' },
         { condition: 'url-contains', value: 'example.com/nl/shop', language: 'nl' },
-        { condition: 'url-contains', value: 'dev-rpractice.pantheonsite.io/fr/', language: 'fr' },
+        { condition: 'url-contains', value: 'dev-rpractice.pantheonsite.io/fr/', language: 'fr' }, */
+
         
         // URL exact (specific full URLs)
-        { condition: 'url-exact', value: 'https://dev-rpractice.pantheonsite.io/shop/nl/', language: 'nl' },
+       /** { condition: 'url-exact', value: 'https://dev-rpractice.pantheonsite.io/shop/nl/', language: 'nl' },
         { condition: 'url-exact', value: 'https://dev-rpractice.pantheonsite.io/shop/pl/', language: 'pl' },
         { condition: 'url-exact', value: 'https://dev-rpractice.pantheonsite.io/shop/sv/', language: 'sv' },
         
         // URL starts with
         { condition: 'url-starts-with', value: 'https://dev-rpractice.pantheonsite.io/nl/', language: 'nl' },
         { condition: 'url-starts-with', value: 'https://dev-rpractice.pantheonsite.io/pl/', language: 'pl' },
-        { condition: 'url-starts-with', value: 'https://dev-rpractice.pantheonsite.io/sv/', language: 'sv' },
+        { condition: 'url-starts-with', value: 'https://dev-rpractice.pantheonsite.io/sv/', language: 'sv' }, */
+
         
         // ===========================================================================
         // ====== HOSTNAME/DOMAIN CONDITIONS ========================================
         // ===========================================================================
         
         // Exact hostname matches
-        { condition: 'exact', value: 'nl.example.com', language: 'nl' },
+       /** { condition: 'exact', value: 'nl.example.com', language: 'nl' },
         { condition: 'exact', value: 'pl.example.com', language: 'pl' },
         { condition: 'exact', value: 'se.example.com', language: 'sv' },
         { condition: 'exact', value: 'dk.example.com', language: 'da' },
@@ -301,61 +308,69 @@ urlLanguageRules: {
         { condition: 'exact', value: 'cz.example.com', language: 'cs' },
         { condition: 'exact', value: 'ro.example.com', language: 'ro' },
         { condition: 'exact', value: 'fr.example.com', language: 'fr' },
-        { condition: 'exact', value: 'de.example.com', language: 'de' },
+        { condition: 'exact', value: 'de.example.com', language: 'de' }, */
+
         
         // Hostname contains
-        { condition: 'hostname-contains', value: '.fr.', language: 'fr' },
+       /** { condition: 'hostname-contains', value: '.fr.', language: 'fr' },
         { condition: 'hostname-contains', value: '.de.', language: 'de' },
-        { condition: 'hostname-contains', value: '.nl.', language: 'nl' },
+        { condition: 'hostname-contains', value: '.nl.', language: 'nl' }, */
+
         
         // Hostname starts with (subdomains)
-        { condition: 'hostname-starts-with', value: 'fr.', language: 'fr' },
+      /**  { condition: 'hostname-starts-with', value: 'fr.', language: 'fr' },
         { condition: 'hostname-starts-with', value: 'de.', language: 'de' },
-        { condition: 'hostname-starts-with', value: 'nl.', language: 'nl' },
+        { condition: 'hostname-starts-with', value: 'nl.', language: 'nl' }, */
+
         
         // Subdomain specific
-        { condition: 'subdomain', value: 'fr', language: 'fr' },
+      /**  { condition: 'subdomain', value: 'fr', language: 'fr' },
         { condition: 'subdomain', value: 'de', language: 'de' },
         { condition: 'subdomain', value: 'nl', language: 'nl' },
-        { condition: 'subdomain', value: 'pl', language: 'pl' },
+        { condition: 'subdomain', value: 'pl', language: 'pl' }, */
+
         
         // ===========================================================================
         // ====== QUERY PARAMETER CONDITIONS =========================================
         // ===========================================================================
         
         // General contains (old format - for backward compatibility)
-        { condition: 'contains', value: '?lang=nl', language: 'nl' },
+       /** { condition: 'contains', value: '?lang=nl', language: 'nl' },
         { condition: 'contains', value: '?lang=pl', language: 'pl' },
         { condition: 'contains', value: '?lang=sv', language: 'sv' },
         { condition: 'contains', value: '?language=da', language: 'da' },
         { condition: 'contains', value: '?language=fi', language: 'fi' },
         { condition: 'contains', value: 'locale=el', language: 'el' },
-        { condition: 'contains', value: 'locale=hu', language: 'hu' },
+        { condition: 'contains', value: 'locale=hu', language: 'hu' }, */
+
         
         // Parameter contains (new format)
-        { condition: 'param-contains', value: 'lang=nl', language: 'nl' },
+       /** { condition: 'param-contains', value: 'lang=nl', language: 'nl' },
         { condition: 'param-contains', value: 'lang=pl', language: 'pl' },
         { condition: 'param-contains', value: 'lang=sv', language: 'sv' },
         { condition: 'param-contains', value: 'language=da', language: 'da' },
-        { condition: 'param-contains', value: 'language=fi', language: 'fi' },
+        { condition: 'param-contains', value: 'language=fi', language: 'fi' }, */
+
         
         // Parameter exact match
-        { condition: 'param-exact', value: 'lang=fr', language: 'fr' },
+     /**   { condition: 'param-exact', value: 'lang=fr', language: 'fr' },
         { condition: 'param-exact', value: 'lang=de', language: 'de' },
         { condition: 'param-exact', value: 'lang=en', language: 'en' },
         { condition: 'param-exact', value: 'locale=fr_FR', language: 'fr' },
-        { condition: 'param-exact', value: 'locale=de_DE', language: 'de' },
+        { condition: 'param-exact', value: 'locale=de_DE', language: 'de' }, */
+
         
         // Has parameter
-        { condition: 'has-param', value: 'lang', language: 'en' },
+      /**  { condition: 'has-param', value: 'lang', language: 'en' },
         { condition: 'has-param', value: 'language', language: 'en' },
-        { condition: 'has-param', value: 'locale', language: 'en' },
+        { condition: 'has-param', value: 'locale', language: 'en' }, */
+
         
         // ===========================================================================
         // ====== FALLBACK BY DOMAIN EXTENSION =======================================
         // ===========================================================================
         
-        { condition: 'hostname-ends-with', value: '.nl', language: 'nl' },
+    /**    { condition: 'hostname-ends-with', value: '.nl', language: 'nl' },
         { condition: 'hostname-ends-with', value: '.pl', language: 'pl' },
         { condition: 'hostname-ends-with', value: '.se', language: 'sv' },
         { condition: 'hostname-ends-with', value: '.dk', language: 'da' },
@@ -373,14 +388,16 @@ urlLanguageRules: {
         { condition: 'hostname-ends-with', value: '.ee', language: 'et' },
         { condition: 'hostname-ends-with', value: '.mt', language: 'mt' },
         { condition: 'hostname-ends-with', value: '.fr', language: 'fr' },
-        { condition: 'hostname-ends-with', value: '.de', language: 'de' },
+        { condition: 'hostname-ends-with', value: '.de', language: 'de' }, */
+
         
         // ===========================================================================
         // ====== FINAL FALLBACK RULES ===============================================
         // ===========================================================================
         
-        { condition: 'exact', value: 'dev-rpractice.pantheonsite.io', language: 'en' },
-        { condition: 'hostname-contains', value: 'dev-rpractice', language: 'en' },
+      /**  { condition: 'exact', value: 'dev-rpractice.pantheonsite.io', language: 'en' },
+        { condition: 'hostname-contains', value: 'dev-rpractice', language: 'en' }, */
+
         
         // Ultimate fallback - will match any page on your domain
         { condition: 'url-contains', value: 'dev-rpractice.pantheonsite.io', language: 'en' }
