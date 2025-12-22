@@ -222,7 +222,7 @@ clarityConfig: {
          //    { condition: 'contains', value: '.de', language: 'de' },
             
             // Example 2: Exact domain match
-          //   { condition: 'exact', value: 'abcd.de', language: 'de' },
+            { condition: 'exact', value: 'dev-rpractice.pantheonsite.io', language: 'en' },
           //   { condition: 'exact', value: 'abcd.com.de', language: 'de' },
             
             // Example 3: Path contains specific text
