@@ -220,14 +220,172 @@ clarityConfig: {
 urlLanguageRules: {
     enabled: true,
     rules: [
-        // More specific rules first
-        { condition: 'path-contains', value: 'shop', language: 'de' },
-        { condition: 'path-contains', value: '/fr/', language: 'fr' },
-        // General rules last
-        { condition: 'exact', value: 'dev-rpractice.pantheonsite.io', language: 'en' }
+        // ===========================================================================
+        // ====== PATH-BASED CONDITIONS (HIGHEST PRIORITY) ===========================
+        // ===========================================================================
+        
+        // Path contains (Most Flexible)
+        { condition: 'path-contains', value: 'shop', language: 'nl' },
+        { condition: 'path-contains', value: '/shop/pl/', language: 'pl' },
+        { condition: 'path-contains', value: '/shop/sv/', language: 'sv' },
+        { condition: 'path-contains', value: '/shop/da/', language: 'da' },
+        { condition: 'path-contains', value: '/shop/fi/', language: 'fi' },
+        { condition: 'path-contains', value: '/shop/el/', language: 'el' },
+        { condition: 'path-contains', value: '/shop/hu/', language: 'hu' },
+        { condition: 'path-contains', value: '/shop/cs/', language: 'cs' },
+        { condition: 'path-contains', value: '/shop/ro/', language: 'ro' },
+        
+        // General shop for specific languages
+        { condition: 'path-contains', value: '/nederlandse-winkel', language: 'nl' },
+        { condition: 'path-contains', value: '/polski-sklep', language: 'pl' },
+        { condition: 'path-contains', value: '/svenska-butik', language: 'sv' },
+        
+        // Language-specific paths
+        { condition: 'path-contains', value: '/nederlands/', language: 'nl' },
+        { condition: 'path-contains', value: '/polski/', language: 'pl' },
+        { condition: 'path-contains', value: '/svenska/', language: 'sv' },
+        { condition: 'path-contains', value: '/dansk/', language: 'da' },
+        { condition: 'path-contains', value: '/suomi/', language: 'fi' },
+        { condition: 'path-contains', value: '/ελληνικά/', language: 'el' },
+        { condition: 'path-contains', value: '/magyar/', language: 'hu' },
+        { condition: 'path-contains', value: '/čeština/', language: 'cs' },
+        { condition: 'path-contains', value: '/română/', language: 'ro' },
+        
+        // Path exact (Higher priority than contains)
+        { condition: 'path-exact', value: '/shop/de', language: 'de' },
+        { condition: 'path-exact', value: '/shop/fr', language: 'fr' },
+        { condition: 'path-exact', value: '/shop/en', language: 'en' },
+        { condition: 'path-exact', value: '/german-version', language: 'de' },
+        { condition: 'path-exact', value: '/french-version', language: 'fr' },
+        { condition: 'path-exact', value: '/english-version', language: 'en' },
+        
+        // Path starts with
+        { condition: 'path-starts-with', value: '/nl/', language: 'nl' },
+        { condition: 'path-starts-with', value: '/pl/', language: 'pl' },
+        { condition: 'path-starts-with', value: '/sv/', language: 'sv' },
+        { condition: 'path-starts-with', value: '/da/', language: 'da' },
+        { condition: 'path-starts-with', value: '/fi/', language: 'fi' },
+        
+        // ===========================================================================
+        // ====== URL-BASED CONDITIONS (MEDIUM PRIORITY) =============================
+        // ===========================================================================
+        
+        // URL contains (full URL matching)
+        { condition: 'url-contains', value: 'example.com/fr/shop', language: 'fr' },
+        { condition: 'url-contains', value: 'example.com/de/shop', language: 'de' },
+        { condition: 'url-contains', value: 'example.com/nl/shop', language: 'nl' },
+        { condition: 'url-contains', value: 'dev-rpractice.pantheonsite.io/fr/', language: 'fr' },
+        
+        // URL exact (specific full URLs)
+        { condition: 'url-exact', value: 'https://dev-rpractice.pantheonsite.io/shop/nl/', language: 'nl' },
+        { condition: 'url-exact', value: 'https://dev-rpractice.pantheonsite.io/shop/pl/', language: 'pl' },
+        { condition: 'url-exact', value: 'https://dev-rpractice.pantheonsite.io/shop/sv/', language: 'sv' },
+        
+        // URL starts with
+        { condition: 'url-starts-with', value: 'https://dev-rpractice.pantheonsite.io/nl/', language: 'nl' },
+        { condition: 'url-starts-with', value: 'https://dev-rpractice.pantheonsite.io/pl/', language: 'pl' },
+        { condition: 'url-starts-with', value: 'https://dev-rpractice.pantheonsite.io/sv/', language: 'sv' },
+        
+        // ===========================================================================
+        // ====== HOSTNAME/DOMAIN CONDITIONS ========================================
+        // ===========================================================================
+        
+        // Exact hostname matches
+        { condition: 'exact', value: 'nl.example.com', language: 'nl' },
+        { condition: 'exact', value: 'pl.example.com', language: 'pl' },
+        { condition: 'exact', value: 'se.example.com', language: 'sv' },
+        { condition: 'exact', value: 'dk.example.com', language: 'da' },
+        { condition: 'exact', value: 'fi.example.com', language: 'fi' },
+        { condition: 'exact', value: 'gr.example.com', language: 'el' },
+        { condition: 'exact', value: 'hu.example.com', language: 'hu' },
+        { condition: 'exact', value: 'cz.example.com', language: 'cs' },
+        { condition: 'exact', value: 'ro.example.com', language: 'ro' },
+        { condition: 'exact', value: 'fr.example.com', language: 'fr' },
+        { condition: 'exact', value: 'de.example.com', language: 'de' },
+        
+        // Hostname contains
+        { condition: 'hostname-contains', value: '.fr.', language: 'fr' },
+        { condition: 'hostname-contains', value: '.de.', language: 'de' },
+        { condition: 'hostname-contains', value: '.nl.', language: 'nl' },
+        
+        // Hostname starts with (subdomains)
+        { condition: 'hostname-starts-with', value: 'fr.', language: 'fr' },
+        { condition: 'hostname-starts-with', value: 'de.', language: 'de' },
+        { condition: 'hostname-starts-with', value: 'nl.', language: 'nl' },
+        
+        // Subdomain specific
+        { condition: 'subdomain', value: 'fr', language: 'fr' },
+        { condition: 'subdomain', value: 'de', language: 'de' },
+        { condition: 'subdomain', value: 'nl', language: 'nl' },
+        { condition: 'subdomain', value: 'pl', language: 'pl' },
+        
+        // ===========================================================================
+        // ====== QUERY PARAMETER CONDITIONS =========================================
+        // ===========================================================================
+        
+        // General contains (old format - for backward compatibility)
+        { condition: 'contains', value: '?lang=nl', language: 'nl' },
+        { condition: 'contains', value: '?lang=pl', language: 'pl' },
+        { condition: 'contains', value: '?lang=sv', language: 'sv' },
+        { condition: 'contains', value: '?language=da', language: 'da' },
+        { condition: 'contains', value: '?language=fi', language: 'fi' },
+        { condition: 'contains', value: 'locale=el', language: 'el' },
+        { condition: 'contains', value: 'locale=hu', language: 'hu' },
+        
+        // Parameter contains (new format)
+        { condition: 'param-contains', value: 'lang=nl', language: 'nl' },
+        { condition: 'param-contains', value: 'lang=pl', language: 'pl' },
+        { condition: 'param-contains', value: 'lang=sv', language: 'sv' },
+        { condition: 'param-contains', value: 'language=da', language: 'da' },
+        { condition: 'param-contains', value: 'language=fi', language: 'fi' },
+        
+        // Parameter exact match
+        { condition: 'param-exact', value: 'lang=fr', language: 'fr' },
+        { condition: 'param-exact', value: 'lang=de', language: 'de' },
+        { condition: 'param-exact', value: 'lang=en', language: 'en' },
+        { condition: 'param-exact', value: 'locale=fr_FR', language: 'fr' },
+        { condition: 'param-exact', value: 'locale=de_DE', language: 'de' },
+        
+        // Has parameter
+        { condition: 'has-param', value: 'lang', language: 'en' },
+        { condition: 'has-param', value: 'language', language: 'en' },
+        { condition: 'has-param', value: 'locale', language: 'en' },
+        
+        // ===========================================================================
+        // ====== FALLBACK BY DOMAIN EXTENSION =======================================
+        // ===========================================================================
+        
+        { condition: 'hostname-ends-with', value: '.nl', language: 'nl' },
+        { condition: 'hostname-ends-with', value: '.pl', language: 'pl' },
+        { condition: 'hostname-ends-with', value: '.se', language: 'sv' },
+        { condition: 'hostname-ends-with', value: '.dk', language: 'da' },
+        { condition: 'hostname-ends-with', value: '.fi', language: 'fi' },
+        { condition: 'hostname-ends-with', value: '.gr', language: 'el' },
+        { condition: 'hostname-ends-with', value: '.hu', language: 'hu' },
+        { condition: 'hostname-ends-with', value: '.cz', language: 'cs' },
+        { condition: 'hostname-ends-with', value: '.ro', language: 'ro' },
+        { condition: 'hostname-ends-with', value: '.sk', language: 'sk' },
+        { condition: 'hostname-ends-with', value: '.si', language: 'sl' },
+        { condition: 'hostname-ends-with', value: '.bg', language: 'bg' },
+        { condition: 'hostname-ends-with', value: '.hr', language: 'hr' },
+        { condition: 'hostname-ends-with', value: '.lt', language: 'lt' },
+        { condition: 'hostname-ends-with', value: '.lv', language: 'lv' },
+        { condition: 'hostname-ends-with', value: '.ee', language: 'et' },
+        { condition: 'hostname-ends-with', value: '.mt', language: 'mt' },
+        { condition: 'hostname-ends-with', value: '.fr', language: 'fr' },
+        { condition: 'hostname-ends-with', value: '.de', language: 'de' },
+        
+        // ===========================================================================
+        // ====== FINAL FALLBACK RULES ===============================================
+        // ===========================================================================
+        
+        { condition: 'exact', value: 'dev-rpractice.pantheonsite.io', language: 'en' },
+        { condition: 'hostname-contains', value: 'dev-rpractice', language: 'en' },
+        
+        // Ultimate fallback - will match any page on your domain
+        { condition: 'url-contains', value: 'dev-rpractice.pantheonsite.io', language: 'en' }
     ]
 },
-
 
 
   
@@ -2263,57 +2421,155 @@ function detectLanguageFromURL() {
     const currentURL = window.location.href;
     const currentHostname = window.location.hostname;
     const currentPath = window.location.pathname;
+    const currentSearch = window.location.search;
+    const currentHash = window.location.hash;
     
-    console.log('URL Language Detection Debug:', {
-        url: currentURL,
+    // Full URL for comprehensive matching
+    const fullURL = currentURL;
+    
+    console.log('🔍 URL Language Detection - Checking:', {
         hostname: currentHostname,
         path: currentPath,
-        rules: config.urlLanguageRules.rules
+        search: currentSearch,
+        hash: currentHash,
+        fullURL: fullURL
     });
     
-    // Check each rule in order
-    for (const rule of config.urlLanguageRules.rules) {
+    // Check each rule in the exact order they're defined
+    for (let i = 0; i < config.urlLanguageRules.rules.length; i++) {
+        const rule = config.urlLanguageRules.rules[i];
         let matches = false;
         
+        // First, validate that the language exists in translations
+        if (!translations[rule.language]) {
+            console.warn(`⚠️ Skipping rule ${i+1} - Language '${rule.language}' not found in translations`);
+            continue;
+        }
+        
+        // Perform matching based on condition type
         switch (rule.condition) {
-            case 'contains':
-                if (currentURL.includes(rule.value)) {
-                    matches = true;
-                }
-                break;
-                
-            case 'exact':
-                if (currentHostname === rule.value) {
-                    matches = true;
-                }
-                break;
-                
+            // ====== PATH-BASED CONDITIONS (HIGHEST PRIORITY) ======
             case 'path-contains':
-                if (currentPath.includes(rule.value)) {
-                    matches = true;
-                }
+                matches = currentPath.includes(rule.value);
                 break;
                 
             case 'path-exact':
-                if (currentPath === rule.value) {
-                    matches = true;
+                matches = currentPath === rule.value;
+                break;
+                
+            case 'path-starts-with':
+                matches = currentPath.startsWith(rule.value);
+                break;
+                
+            case 'path-ends-with':
+                matches = currentPath.endsWith(rule.value);
+                break;
+                
+            case 'path-regex':
+                try {
+                    const regex = new RegExp(rule.value);
+                    matches = regex.test(currentPath);
+                } catch (e) {
+                    console.error(`Invalid regex in rule ${i+1}:`, e);
                 }
                 break;
+                
+            // ====== URL-BASED CONDITIONS (MEDIUM PRIORITY) ======
+            case 'url-contains':
+                matches = fullURL.includes(rule.value);
+                break;
+                
+            case 'url-exact':
+                matches = fullURL === rule.value;
+                break;
+                
+            case 'url-starts-with':
+                matches = fullURL.startsWith(rule.value);
+                break;
+                
+            case 'url-ends-with':
+                matches = fullURL.endsWith(rule.value);
+                break;
+                
+            case 'url-regex':
+                try {
+                    const regex = new RegExp(rule.value);
+                    matches = regex.test(fullURL);
+                } catch (e) {
+                    console.error(`Invalid regex in rule ${i+1}:`, e);
+                }
+                break;
+                
+            // ====== HOSTNAME/DOMAIN CONDITIONS ======
+            case 'exact':
+                matches = currentHostname === rule.value;
+                break;
+                
+            case 'hostname-contains':
+                matches = currentHostname.includes(rule.value);
+                break;
+                
+            case 'hostname-starts-with':
+                matches = currentHostname.startsWith(rule.value);
+                break;
+                
+            case 'hostname-ends-with':
+                matches = currentHostname.endsWith(rule.value);
+                break;
+                
+            case 'subdomain':
+                const subdomainPattern = new RegExp(`^${rule.value}\\.`);
+                matches = subdomainPattern.test(currentHostname);
+                break;
+                
+            // ====== QUERY PARAMETER CONDITIONS ======
+            case 'contains':
+                matches = fullURL.includes(rule.value);
+                break;
+                
+            case 'param-contains':
+                matches = currentSearch.includes(rule.value);
+                break;
+                
+            case 'param-exact':
+                const params = new URLSearchParams(currentSearch);
+                const [key, value] = rule.value.split('=');
+                matches = params.get(key) === value;
+                break;
+                
+            case 'has-param':
+                const paramName = rule.value.replace('?', '');
+                matches = currentSearch.includes(paramName);
+                break;
+                
+            // ====== HASH/FRAGMENT CONDITIONS ======
+            case 'hash-contains':
+                matches = currentHash.includes(rule.value);
+                break;
+                
+            case 'hash-exact':
+                matches = currentHash === rule.value;
+                break;
+                
+            default:
+                console.warn(`Unknown condition type: ${rule.condition} in rule ${i+1}`);
+                continue;
         }
         
-        console.log(`Checking rule "${rule.condition}:${rule.value}" => ${rule.language}:`, {
-            matches: matches,
-            currentPath: currentPath,
-            ruleValue: rule.value
-        });
-        
-        if (matches && translations[rule.language]) {
-            console.log('URL rule matched:', rule);
+        if (matches) {
+            console.log(`✅ Rule ${i+1} MATCHED!`, {
+                rule: `${rule.condition}: "${rule.value}"`,
+                language: rule.language,
+                languageName: translations[rule.language].language,
+                currentPath: currentPath,
+                currentHostname: currentHostname,
+                matchedValue: rule.value
+            });
             return rule.language;
         }
     }
     
-    console.log('No URL language rule matched');
+    console.log('ℹ️ No URL language rule matched');
     return null;
 }
 
